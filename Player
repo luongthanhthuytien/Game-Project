@@ -1,0 +1,105 @@
+package zombiegame;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+
+public class Player extends GameElement
+{
+    private final int speed = 5;
+    public int facing; //0-up 1-right 2-down 3-left
+    public boolean upB, downB, leftB, rightB;
+    
+    public Player()
+    {
+        super();
+        x = 350;
+        y = 350;
+        width = 25;
+        height = 25;
+    }
+    
+    @Override
+    public boolean update(GameElement e) 
+    {
+        if(upB)
+        {
+            this.y -= speed;
+        }
+        if(downB)
+        {
+            this.y += speed;
+        }
+        if(leftB)
+        {
+            this.x -= speed;
+        }
+        if(rightB)
+        {
+            this.x += speed;
+        }
+        return false;
+    }
+    
+    public void updateDir(KeyEvent e, boolean d)
+    {
+        int id = e.getKeyCode();
+        if(id == KeyEvent.VK_W || id == KeyEvent.VK_UP)
+        {
+            if(d)
+            {
+                upB = false;
+            }
+            else
+            {
+                upB = true;
+                facing = 0;
+            }
+        }
+        else if(id == KeyEvent.VK_S || id == KeyEvent.VK_DOWN)
+        {
+            if(d)
+            {
+                downB = false;
+            }
+            else
+            {
+                downB = true;
+                facing = 2;
+            }
+        }
+        else if(id == KeyEvent.VK_A || id == KeyEvent.VK_LEFT)
+        {
+            if(d)
+            {
+                leftB = false;
+                
+            }
+            else
+            {
+                leftB = true;
+                facing = 3;
+            }
+        }
+        else if(id == KeyEvent.VK_D || id == KeyEvent.VK_RIGHT)
+        {
+            if(d)
+            {
+                rightB = false;
+            }
+            else
+            {
+                rightB = true;
+                facing = 1;
+            }
+        }
+    }
+
+    @Override
+    public void render(Graphics g) 
+    {
+        g.setColor(Color.BLUE);
+        g.fillRect(x, y, width, height);
+    }
+    
+}
